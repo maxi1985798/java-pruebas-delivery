@@ -1,4 +1,11 @@
+
 package com.educacionit.delivery.servlet;
+
+
+import com.educacionit.delivery.beans.User;
+import com.educacionit.delivery.services.ISecurity;
+import com.educacionit.delivery.services.SecurityException;
+import com.educacionit.delivery.services.support.SecuritySupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,24 +16,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/login")
+
+@WebServlet ("/login")
 public class LoginServlet extends HttpServlet {
+
+
+    private ISecurity security = new SecuritySupport ();
+
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        /*
-        // para enviar un texto
-        String s = req.getParameter("email");
 
-        PrintWriter out = resp.getWriter();
-        out.println("<b>Bienvenido "+s+"</b>");
-        out.close();*/
+        try {
 
-        String s = req.getParameter("email");
-        HttpSession session =  req.getSession();
-        session.setAttribute("email",s);
-        // para redireccionar
-        resp.sendRedirect("home.jsp");
+            User u = security.login (req.getParameter ("email"),
+                    req.getParameter ("pw"));
 
+            HttpSession session = req.getSession ();
+            session.setAttribute ("user", u);
+
+            resp.sendRedirect ("home.jsp");
+
+        } catch (SecurityException se) {
+
+            resp.sendRedirect ("index.jsp?err=001");
+        }
     }
 }

@@ -4,10 +4,12 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 
     <display-name>Educacionit Delivery Web App</display-name>
+
     <servlet>
         <servlet-name>logout</servlet-name>
         <servlet-class>com.educacionit.delivery.servlet.LogoutServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
