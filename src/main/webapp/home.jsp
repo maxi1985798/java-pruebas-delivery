@@ -1,7 +1,14 @@
 <%@ page import="com.educacionit.delivery.beans.User" %>
-<%!
 
+<%!
+    String getUserName (HttpSession session) {
+
+        User s = (User) session.getAttribute ("user");
+        return s.getName () + " " + s.getLastName ();
+    }
 %>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -19,10 +26,7 @@
 <div class="jumbotron text-center">
     <h1>Delivery De Comida</h1>
     <p>Sistema de envio de comidas!</p>
-    <%
-        User s = (User) session.getAttribute ("user");
-    %>
-    <p>Bienvenido : <b><%=s.getName ()%> <%=s.getLastName ()%></b></p>
+    <p>Bienvenido : <b><%=getUserName (session)%></b></p>
     <p><a href="logout">Salir</a></p>
 </div>
 

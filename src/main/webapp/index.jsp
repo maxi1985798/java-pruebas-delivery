@@ -32,9 +32,9 @@
         <div class="col-sm">
             <form action="login" method="post">
                 <div class="form-group">
-                    <label for="email">Correo Electronico</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Ingrese su correo">
-                    <small id="emailHelp" class="form-text text-muted">No permita que su clave sea vista por otros.</small>
+                    <label for="username">Correo Electronico</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Ingrese su usuario">
+                    <small id="usernameHelp" class="form-text text-muted">No permita que su clave sea vista por otros.</small>
                 </div>
                 <div class="form-group">
                     <label for="pw">Clave</label>
@@ -47,6 +47,16 @@
                     %>
                     <div class="alert alert-danger">
                         <strong>Error</strong> Usuario y password no validos !!!</a>.
+                    </div>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (request.getParameter ("err") != null &&
+                                request.getParameter("err").equals ("000")) {
+                    %>
+                    <div class="alert alert-danger">
+                        <strong>Error</strong> Problemas ejecutando su peticion !!!</a>.
                     </div>
                     <%
                         }

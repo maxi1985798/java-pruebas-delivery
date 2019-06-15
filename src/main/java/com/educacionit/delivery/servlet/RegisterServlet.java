@@ -19,14 +19,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-
-@WebServlet ("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet ("/register")
+public class RegisterServlet extends HttpServlet {
 
 
     private ISecurity security;
 
-    private static final Logger logger = Logger.getLogger (LoginServlet.class);
+    private static final Logger logger = Logger.getLogger (RegisterServlet.class);
 
 
     @Override
@@ -39,15 +38,42 @@ public class LoginServlet extends HttpServlet {
         this.security = new SecuritySupport ((DBConnectionManager) ctx.getAttribute ("db"));
     }
 
+
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+
         try {
 
-            logger.debug (String.format ("Executing loggin user %s from %s", req.getParameter ("username"), req.getRemoteHost ()));
-            User u = security.login (req.getParameter ("username"), req.getParameter ("pw"));
+            User u = new User ();
 
-            logger.debug (String.format ("User %s from %s was logged !!!", req.getParameter ("username"), req.getRemoteHost ()));
+            u.setUserName (req.getParameter ("userName"));
+            u.setName (req.getParameter ("name"));
+            u.setLastName (req.getParameter ("lastName"));
+            u.setEmail (req.getParameter ("email"));
+            u.setMobile (req.getParameter ("mobile"));
+            u.setAddress (req.getParameter ("address"));
+            u.setPassword (req.getParameter ("pw"));
+
+
+            if (u.getAddress().equals("") ||
+                u.getEmail ().equals ("") ||
+                u.getLastName ().equals ("") ||
+                u.getMobile ().equals ("") ||
+                u.getName ().equals ("") ||
+                u.getPassword ().equals ("") ||
+                u.getUserName ().equals ("")) {
+
+                resp.sendRedirect ("register.jsp?err=002");
+            }
+
+            if (!u.getPassword ().equals (req.getParameter ("pw2"))) {
+
+                resp.sendRedirect ("register.jsp?err=003");
+            }
+            security.signUp(u);
+            security.signUp (u);
+
             HttpSession session = req.getSession ();
             session.setAttribute ("user", u);
 
@@ -55,10 +81,7 @@ public class LoginServlet extends HttpServlet {
 
         } catch (SecurityException se) {
 
-            logger.error (se.getMessage ());
-            resp.sendRedirect ("index.jsp?err=001");
-        } catch (Exception e) {
-            logger.error(e.getMessage());
+            resp.sendRedirect ("register.jsp?err=001");
         }
     }
 }

@@ -11,7 +11,6 @@ CREATE DATABASE delivery
        CONNECTION LIMIT = -1;
 
 
-
 -- Table: public.users
 
 -- DROP TABLE public.users;
@@ -34,3 +33,6 @@ ALTER TABLE public.users
   OWNER TO postgres;
 
 
+  INSERT INTO public.users(
+            user_name, name, last_name, email, mobile, address, password)
+    VALUES ('hsimpson', 'Homer', 'Simpson', 'hsimpson@gmail.com', '+123456789', 'Springfield', 'cXdlcnR5');

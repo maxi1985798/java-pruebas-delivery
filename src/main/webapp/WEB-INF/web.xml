@@ -5,6 +5,26 @@
 
     <display-name>Educacionit Delivery Web App</display-name>
 
+    <context-param>
+        <param-name>DBUSER</param-name>
+        <param-value>postgres</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>DBPWD</param-name>
+        <param-value>1234</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>DBURL</param-name>
+        <param-value>jdbc:postgresql://localhost/delivery</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>DRIVER</param-name>
+        <param-value>org.postgresql.Driver</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>logout</servlet-name>
         <servlet-class>com.educacionit.delivery.servlet.LogoutServlet</servlet-class>

@@ -21,6 +21,7 @@ public class DBConnectionManager {
 	public DBConnectionManager (String url, String u, String p, String d) {
 
 	    super ();
+
 		this.dbURL = url;
 		this.user  = u;
 		this.password = p;

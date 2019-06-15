@@ -8,42 +8,64 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Educacion IT :: Java Web</title>
+
     <script language="JavaScript">
 
         function doRegister () {
-            if(document.getElementById("userName").value == ''){
-                alert("Nombre de usuario obligatorio");
-                return;
-            }
-            if(document.getElementById("name").value == ''){
-                alert("Nombre obligatorio");
-                return;
-            }
-            if(document.getElementById("lastName").value == ''){
-                alert("Apellido obligatorio");
-                return;
-            }
-            if(document.getElementById("mobile").value == ''){
-                alert("Celular obligatorio");
-                return;
-            }
-            if(document.getElementById("address").value == ''){
-                alert("Direccion obligatorio");
+
+            if (document.getElementById("userName").value == '') {
+
+                alert ("Nombre de usuario es obligatorio !!!");
                 return;
             }
 
-            if(document.getElementById("email").value == ''){
-                alert("Email obligatorio");
+            if (document.getElementById("name").value == '') {
+
+                alert ("Primer nombre es obligatorio !!!");
                 return;
             }
-            if(!document.getElementById("pw").value == document.getElementById("pw2").value){
-                alert("Error al validar password");
+
+            if (document.getElementById("lastName").value == '') {
+
+                alert ("Apellido es obligatorio !!!");
                 return;
             }
-            document.getElementById("data").submit();
+
+            if (document.getElementById("mobile").value == '') {
+
+                alert ("Celular es obligatorio !!!");
+                return;
+            }
+
+            if (document.getElementById("address").value == '') {
+
+                alert ("La direccion es obligatoria !!!");
+                return;
+            }
+
+            if (document.getElementById("email").value == '') {
+
+                alert ("Direccion de email es obligatorio !!!");
+                return;
+            }
+
+            if (document.getElementById("pw").value == '') {
+
+                alert ("La clave es obligatoria !!!");
+                return;
+            }
+
+            if (document.getElementById("pw").value != document.getElementById("pw2").value) {
+
+                alert ("Clave y confirmacion diferentes !!!");
+                return;
+            }
+
+            document.getElementById ("data").submit();
         }
 
     </script>
+
 </head>
 <body>
 
