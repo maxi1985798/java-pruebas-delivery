@@ -59,6 +59,7 @@ public class LoginServlet extends HttpServlet {
             resp.sendRedirect ("index.jsp?err=001");
         } catch (Exception e) {
             logger.error(e.getMessage());
+            resp.sendRedirect ("index.jsp?err=000");
         }
     }
 }

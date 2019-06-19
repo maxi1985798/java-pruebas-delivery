@@ -1,3 +1,4 @@
+<%@ page import="com.educacionit.delivery.beans.User" %>
 <%!
     String getUserName (HttpSession session) {
 
@@ -19,12 +20,3 @@
     <title>Educacion IT :: Java Web</title>
 
 </head>
-
-<body>
-
-    <div class="jumbotron text-center">
-        <h1>Delivery De Comida</h1>
-        <p>Sistema de envio de comidas!</p>
-        <p>Bienvenido : <b><%=getUserName (session)%></b></p>
-        <p><a href="logout">Salir</a></p>
-    </div>
