@@ -11,4 +11,6 @@ public interface ISecurity {
     User login (String u, String p);
 
     void signUp (User u);
+
+    void confirmUser(String mailToConfirm);
 }

@@ -12,6 +12,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import com.educacionit.delivery.beans.User;
 import com.educacionit.delivery.dao.DBConnectionManager;
+import com.educacionit.delivery.mail.MailSender;
 import com.educacionit.delivery.services.ISecurity;
 import com.educacionit.delivery.services.SecurityException;
 
@@ -104,10 +105,32 @@ public class SecuritySupport implements ISecurity {
                     u.getMobile(),
                     u.getAddress(),
                     pw);
+            MailSender confirmationSender = new MailSender();
+            confirmationSender.send(
+                    u.getEmail(), 
+                    "Confirm user", 
+                    String.format ("Please click to confirm http://localhost:8080/delivery/confirmed?mail=%s&",u.getEmail())
+                    );
             logger.debug(String.format("Executing query %s", query));
-            ResultSet result = st.executeQuery (query);
+            st.executeQuery (query);
+            
 
+        } catch (Exception e) {
+            logger.error("Error "+e.getMessage());
+        }
+    }
 
+    @Override
+    public void confirmUser(String mailToConfirm) {
+        logger.debug ("Getting one database connection...");
+        Connection conn = this.manager.getConnection ();
+        try {
+            Statement st = conn.createStatement ();
+            String query = String.format (
+                                "UPDATE public.users\n" +
+                                "	SET confirmed=true\n" +
+                                "	WHERE email='%s';",mailToConfirm);
+            st.executeQuery (query);
         } catch (Exception e) {
             logger.error("Error "+e.getMessage());
         }

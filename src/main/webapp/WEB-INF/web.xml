@@ -35,4 +35,13 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>confirmed</servlet-name>
+        <servlet-class>com.educacionit.delivery.servlet.UserConfirmed</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>confirmed</servlet-name>
+        <url-pattern>/confirmed</url-pattern>
+    </servlet-mapping>
 </web-app>

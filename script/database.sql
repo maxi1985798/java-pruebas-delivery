@@ -24,6 +24,7 @@ CREATE TABLE public.users
   mobile character varying(48) NOT NULL,
   address character varying(512) NOT NULL,
   password character varying(128) NOT NULL,
+  confirmed boolean NOT NULL DEFAULT false,
   CONSTRAINT pk_email PRIMARY KEY (email)
 )
 WITH (

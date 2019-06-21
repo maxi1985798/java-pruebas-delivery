@@ -72,8 +72,7 @@ public class RegisterServlet extends HttpServlet {
                 resp.sendRedirect ("register.jsp?err=003");
             }
             security.signUp(u);
-            security.signUp (u);
-
+            
             HttpSession session = req.getSession ();
             session.setAttribute ("user", u);
 
