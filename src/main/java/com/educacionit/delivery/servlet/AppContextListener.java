@@ -2,6 +2,8 @@
 package com.educacionit.delivery.servlet;
 
 
+import java.util.ResourceBundle;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -30,17 +32,25 @@ public class AppContextListener implements ServletContextListener {
     	logger.info ("Starting Delivery Web Application...");
 		ServletContext ctx = servletContextEvent.getServletContext ();
 
+
 		logger.debug ("Loading context parameters...");
 		String url = ctx.getInitParameter ("DBURL");
 		String u   = ctx.getInitParameter ("DBUSER");
 		String p   = ctx.getInitParameter ("DBPWD");
 		String d   = ctx.getInitParameter ("DRIVER");
+		String l   = ctx.getInitParameter ("LANG");
 
 		logger.debug (String.format ("Connecting to DB using %s %s %s", url, u, p));
 		DBConnectionManager db = new DBConnectionManager (url, u, p, d);
 
 		logger.debug ("Adding connection manager to context...");
 		servletContextEvent.getServletContext ().setAttribute ("db", db);
+
+
+		ResourceBundle bundle = ResourceBundle.getBundle ("locale/message_" + l);
+		logger.debug (String.format ("Adding dictionary languaje %s to context...", l));
+		servletContextEvent.getServletContext ().setAttribute ("lang", bundle);
+
 
 		logger.info ("Delivery Web Application Started !!! ");
     }

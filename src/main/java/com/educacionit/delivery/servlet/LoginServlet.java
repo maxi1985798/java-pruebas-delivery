@@ -2,22 +2,23 @@
 package com.educacionit.delivery.servlet;
 
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.util.Date;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import org.apache.log4j.Logger;
+
 import com.educacionit.delivery.beans.User;
 import com.educacionit.delivery.dao.DBConnectionManager;
 import com.educacionit.delivery.services.ISecurity;
 import com.educacionit.delivery.services.SecurityException;
 import com.educacionit.delivery.services.support.SecuritySupport;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-
 
 
 @WebServlet ("/login")
@@ -51,14 +52,33 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession ();
             session.setAttribute ("user", u);
 
+            // Insert statistic.
+            try {
+
+                DBConnectionManager db = (DBConnectionManager)req.getServletContext().getAttribute ("db");
+                Connection conn = db.getConnection ();
+
+                Statement s = conn.prepareStatement ("insert into statistic (id, email, login) values (?, ?, ?)");
+                ((PreparedStatement) s).setString (1, session.getId ());
+                ((PreparedStatement) s).setString (2, u.getEmail ());
+                ((PreparedStatement) s).setTimestamp(3, new java.sql.Timestamp(new Date().getTime()));
+
+                ((PreparedStatement) s).execute ();
+
+            } catch (Exception e) {
+                logger.error ("Problems saving statistic => " + e.getMessage ());
+            }
+
             resp.sendRedirect ("home.jsp");
 
         } catch (SecurityException se) {
 
             logger.error (se.getMessage ());
             resp.sendRedirect ("index.jsp?err=001");
-        } catch (Exception e) {
-            logger.error(e.getMessage());
+
+        } catch (Exception se) {
+
+            logger.error (se.getMessage ());
             resp.sendRedirect ("index.jsp?err=000");
         }
     }

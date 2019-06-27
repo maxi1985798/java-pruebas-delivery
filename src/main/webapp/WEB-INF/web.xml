@@ -5,6 +5,8 @@
 
     <display-name>Educacionit Delivery Web App</display-name>
 
+
+
     <context-param>
         <param-name>DBUSER</param-name>
         <param-value>postgres</param-value>
@@ -24,6 +26,26 @@
         <param-name>DRIVER</param-name>
         <param-value>org.postgresql.Driver</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>LANG</param-name>
+        <param-value>en</param-value>
+    </context-param>
+
+
+    <filter>
+        <filter-name>SessionFilter</filter-name>
+        <filter-class>com.educacionit.delivery.servlet.AuthenticationFilter</filter-class>
+        <init-param>
+            <param-name>avoid-urls</param-name>
+            <param-value>/index.jsp,/login,/logout</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>SessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>logout</servlet-name>

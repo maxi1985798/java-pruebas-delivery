@@ -34,6 +34,31 @@ ALTER TABLE public.users
   OWNER TO postgres;
 
 
+-- Table: public.statistic
+
+-- DROP TABLE public.statistic;
+
+CREATE TABLE public.statistic
+(
+  email character varying(48) NOT NULL,
+  login time without time zone NOT NULL,
+  logout time without time zone,
+  id character varying(256) NOT NULL,
+  CONSTRAINT pk_id PRIMARY KEY (id),
+  CONSTRAINT fk_email FOREIGN KEY (email)
+      REFERENCES public.users (email) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.statistic
+  OWNER TO postgres;
+
+
+
+
+
   INSERT INTO public.users(
             user_name, name, last_name, email, mobile, address, password)
     VALUES ('hsimpson', 'Homer', 'Simpson', 'hsimpson@gmail.com', '+123456789', 'Springfield', 'cXdlcnR5');

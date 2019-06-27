@@ -3,9 +3,12 @@ package com.educacionit.delivery.services.support;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Date;
 
+import com.educacionit.delivery.dao.DataException;
 import org.apache.log4j.Logger;
 
 import org.apache.commons.codec.binary.Base64;
@@ -66,12 +69,15 @@ public class SecuritySupport implements ISecurity {
                 user.setMobile (result.getString ("mobile"));
                 user.setName (result.getString ("name"));
                 user.setUserName (u);
+                logger.debug (String.format("User values loaded %s ", u));
 
                 break;
             }
 
         } catch (Exception e) {
-            logger.error("Error "+e.getMessage());
+
+            logger.error ("Failure executing process..." + e.getMessage ());
+            throw new DataException (e);
         }
 
         if (user == null) {
@@ -84,7 +90,6 @@ public class SecuritySupport implements ISecurity {
             return user;
         }
     }
-
 
     @Override
     public void signUp (User u) {

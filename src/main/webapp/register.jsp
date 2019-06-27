@@ -1,5 +1,16 @@
-<%@ include file="/WEB-INF/includes/header.jsp" %>
-<body>
+<%@ page session="false" %>
+<%@ include file="/WEB-INF/includes/commons.jsp" %>
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Educacion IT :: Java Web</title>
+
     <script language="JavaScript">
 
         function doRegister () {
@@ -57,6 +68,9 @@
 
     </script>
 
+</head>
+<body>
+
 <div class="jumbotron text-center">
     <h1>Delivery De Comida</h1>
     <p>Sistema de envio de comidas!</p>
@@ -109,6 +123,39 @@
                     <input type="password" class="form-control" id="pw2" name="pw2" placeholder="Repita su clave">
                 </div>
 
+                <div class="form-group">
+                    <%
+                        if (request.getParameter ("err") != null &&
+                                request.getParameter("err").equals ("002")) {
+                    %>
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> Falta ingresar alguna informacion sobre su registro !!!</a>.
+                    </div>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (request.getParameter ("err") != null &&
+                                request.getParameter("err").equals ("003")) {
+                    %>
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> Clave y confirmacion no coinciden !!!</a>.
+                    </div>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (request.getParameter ("err") != null &&
+                                request.getParameter("err").equals ("000")) {
+                    %>
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> Problemas ejecutando su peticion, intente nuevamente</a>.
+                    </div>
+                    <%
+                        }
+                    %>
+                </div>
+
                 <button type="button" onclick="doRegister();" class="btn btn-primary">Registrarme</button>
 
                 <div class="form-group">
@@ -120,4 +167,10 @@
     </div>
 </div>
 
-<%@ include file="/WEB-INF/includes/footer.jsp" %>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
