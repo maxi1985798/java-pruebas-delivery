@@ -14,10 +14,10 @@ import javax.servlet.ServletContext;
 import org.apache.log4j.Logger;
 
 
-public class UserConfirmed extends HttpServlet {
+public class UserConfirmedServlet extends HttpServlet {
 
     private ISecurity security;
-    private static final Logger logger = Logger.getLogger (UserConfirmed.class);
+    private static final Logger logger = Logger.getLogger (UserConfirmedServlet.class);
     
     @Override
     public void init () throws ServletException {

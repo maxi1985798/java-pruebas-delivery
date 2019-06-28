@@ -17,9 +17,7 @@ import com.educacionit.delivery.dao.DBConnectionManager;
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
-
-	private static final Logger logger = Logger.getLogger (AppContextListener.class);
-
+    private static final Logger logger = Logger.getLogger (AppContextListener.class);
 
     public AppContextListener () {
 

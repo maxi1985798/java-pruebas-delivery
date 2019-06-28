@@ -1,4 +1,7 @@
-<%@ page import="com.educacionit.delivery.beans.User" %>
+<%@ page import="com.educacionit.delivery.beans.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="e" tagdir="/WEB-INF/tags" %>
+<%@ include file="/WEB-INF/includes/commons.jsp" %>
 <%!
     String getUserName (HttpSession session) {
 
@@ -6,7 +9,11 @@
         return s.getName () + " " + s.getLastName ();
     }
 %>
-<%@ include file="commons.jsp" %>
+<%!
+    int getEnteroLoco () {
+        return Restaurant.getEnteroLoco();
+    }
+%>
 <!doctype html>
 <html lang="en">
 <head>

@@ -57,8 +57,33 @@ ALTER TABLE public.statistic
 
 
 
+CREATE TABLE public.restaurants
+(
+    id smallint NOT NULL,
+    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    phone character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    photo_link character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    foods character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    description character varying(200) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT restaurants_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
 
+INSERT INTO public.restaurants(
+	id, name, phone, photo_link, foods, description)
+	VALUES (1, 'guerrin', '011 4371-8141','http://salpimenta.com.ar/wp-content/uploads/2015/08/Fachada-Guerrin.jpg', 'pizzas,empanadas', 'La mejor pizza de arg');
+	
+INSERT INTO public.restaurants(
+	id, name, phone, photo_link, foods, description)
+	VALUES (2, 'Don Julio', '011 4832-6058', 'https://img.guiaoleo.com.ar/unsafe/273x162/filters:fill(green)/Don-Julio-802-d1fc1f34-6194-476c-85ae-5affad239fd3', 'parrilla', 'talvez la mejor carne');
+	
+INSERT INTO public.restaurants(
+	id, name, phone, photo_link, foods, description)
+	VALUES (3, 'Chorimovil', 'no phone', 'https://www.clubtwister.com.ar/foro/uploader2/viewimage.php?image=4828/1326584865/101_3726.jpg', 'chorizo', 'el mejor chori');
 
   INSERT INTO public.users(
-            user_name, name, last_name, email, mobile, address, password)
-    VALUES ('hsimpson', 'Homer', 'Simpson', 'hsimpson@gmail.com', '+123456789', 'Springfield', 'cXdlcnR5');
+            user_name, name, last_name, email, mobile, address, password, confirmed)
+    VALUES ('hsimpson', 'Homer', 'Simpson', 'hsimpson@gmail.com', '+123456789', 'Springfield', 'cXdlcnR5', true);
