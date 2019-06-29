@@ -9,9 +9,6 @@
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">
-                <c:forEach items="${bean.getArray('foo')}" var="item">
-                    ${item} <br />
-                </c:forEach>
                 
             </div>
             <div class="col-sm"></div>

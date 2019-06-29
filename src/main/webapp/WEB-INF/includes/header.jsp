@@ -9,11 +9,6 @@
         return s.getName () + " " + s.getLastName ();
     }
 %>
-<%!
-    int getEnteroLoco () {
-        return Restaurant.getEnteroLoco();
-    }
-%>
 <!doctype html>
 <html lang="en">
 <head>

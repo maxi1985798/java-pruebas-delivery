@@ -2,6 +2,7 @@
 package com.educacionit.delivery.servlet;
 
 
+import com.educacionit.delivery.beans.Restaurant;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +20,7 @@ import com.educacionit.delivery.dao.DBConnectionManager;
 import com.educacionit.delivery.services.ISecurity;
 import com.educacionit.delivery.services.SecurityException;
 import com.educacionit.delivery.services.support.SecuritySupport;
+import java.util.ArrayList;
 
 
 @WebServlet ("/login")
@@ -39,6 +41,31 @@ public class LoginServlet extends HttpServlet {
         logger.debug ("Initializing Security Support Object...");
         this.security = new SecuritySupport ((DBConnectionManager) ctx.getAttribute ("db"));
     }
+    
+    private ArrayList<Restaurant> getRestaurants(){
+        ArrayList<Restaurant> retaurants = new ArrayList<Restaurant>();
+        
+        
+        ///r.
+//        while (result.next ()) {
+//
+//            logger.debug (String.format("Loading User values %s !!! ", u));
+//            logger.debug (String.format("User %s found !!! ", u));
+//            Restaurant aRestaurant = new Restaurant();
+//            
+//            user.setAddress (result.getString ("name"));
+//            user.setEmail (result.getString ("photo_link"));
+//            user.setLastName (result.getString ("last_name"));
+//            user.setMobile (result.getString ("mobile"));
+//            user.setName (result.getString ("name"));
+//            user.setUserName (u);
+//            logger.debug (String.format("User values loaded %s ", u));
+//
+//            break;
+//        }
+        
+        return retaurants;
+    }
 
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,7 +78,7 @@ public class LoginServlet extends HttpServlet {
             logger.debug (String.format ("User %s from %s was logged !!!", req.getParameter ("username"), req.getRemoteHost ()));
             HttpSession session = req.getSession ();
             session.setAttribute ("user", u);
-
+            ArrayList<Restaurant> allRestaurants = getRestaurants();
             // Insert statistic.
             try {
 
