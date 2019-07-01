@@ -50,12 +50,12 @@ public class DBConnectionManager {
 
 	    try {
 
-            return this.dataSource.getConnection ();
+                return this.dataSource.getConnection ();
 
-        } catch (Exception e) {
+            } catch (Exception e) {
 
-	        throw new DataException(e);
-        }
+                throw new DataException(e);
+            }
 	}
 	
 	public void closeConnection () {

@@ -42,31 +42,6 @@ public class LoginServlet extends HttpServlet {
         logger.debug ("Initializing Security Support Object...");
         this.security = new SecuritySupport ((DBConnectionManager) ctx.getAttribute ("db"));
     }
-    
-    private ArrayList<Restaurant> getRestaurants(){
-        ArrayList<Restaurant> retaurants = new ArrayList<Restaurant>();
-        
-        
-        ///r.
-//        while (result.next ()) {
-//
-//            logger.debug (String.format("Loading User values %s !!! ", u));
-//            logger.debug (String.format("User %s found !!! ", u));
-//            Restaurant aRestaurant = new Restaurant();
-//            
-//            user.setAddress (result.getString ("name"));
-//            user.setEmail (result.getString ("photo_link"));
-//            user.setLastName (result.getString ("last_name"));
-//            user.setMobile (result.getString ("mobile"));
-//            user.setName (result.getString ("name"));
-//            user.setUserName (u);
-//            logger.debug (String.format("User values loaded %s ", u));
-//
-//            break;
-//        }
-        
-        return retaurants;
-    }
 
     @Override
     protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -85,19 +60,18 @@ public class LoginServlet extends HttpServlet {
                 DBConnectionManager db = (DBConnectionManager)req.getServletContext().getAttribute ("db");
                 Connection conn = db.getConnection ();
 
-                Statement s = conn.prepareStatement ("insert into statistic (id, email, login) values (?, ?, ?)");
+                Statement s = conn.prepareStatement ("insert into statistic (id, email, login) values (?, ?, now())");
                 logger.debug (String.format ("Getting session id for: %s", req.getParameter ("username")));
                 ((PreparedStatement) s).setString (1, session.getId ());
                 logger.debug (String.format ("Getting email for: %s", req.getParameter ("username")));
                 ((PreparedStatement) s).setString (2, u.getEmail ());
-                logger.debug (String.format ("Set Timestamp for: %s", req.getParameter ("username")));
-                ((PreparedStatement) s).setTimestamp(3, new java.sql.Timestamp(new Date().getTime()));
                 logger.debug (String.format ("Insert statistic for: %s", req.getParameter ("username")));
                 ((PreparedStatement) s).execute ();
                 
                 // begin get restaurants
                 
                 ArrayList<Restaurant> allRestaurants = new ArrayList<Restaurant>();
+                ArrayList<String> allRestaurantsName = new ArrayList<String>();
                 Statement s2 = conn.createStatement();
                 String queryToGetRestaurants = String.format ("select * from restaurants");
                 logger.debug (String.format ("Executing query: %s", queryToGetRestaurants));
@@ -110,19 +84,22 @@ public class LoginServlet extends HttpServlet {
                     r.setPhotoLink (result.getString ("photo_link"));
                     r.setFoods(result.getString ("foods"));
                     r.setDescription(result.getString ("description"));
+                    allRestaurantsName.add(r.getName());
                     allRestaurants.add(r);
                 }
                 
-                session.setAttribute ("restaurants", allRestaurants);
+                req.setAttribute ("restaurants", allRestaurants);
+                req.setAttribute ("restaurantsName", allRestaurantsName);
                 
                 // end get restaurants
 
             } catch (Exception e) {
                 logger.error ("Problems saving statistic => " + e.getMessage ());
             }
-
-            resp.sendRedirect ("home.jsp");
-
+            
+            RequestDispatcher rd = req.getRequestDispatcher("home.jsp");
+            rd.forward(req, resp);
+            
         } catch (SecurityException se) {
 
             logger.error (se.getMessage ());

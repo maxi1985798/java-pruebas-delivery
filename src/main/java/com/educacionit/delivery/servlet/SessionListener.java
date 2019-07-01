@@ -47,9 +47,8 @@ public class SessionListener implements HttpSessionListener {
 
             Connection conn = db.getConnection ();
 
-            Statement s = conn.prepareStatement (String.format ("update statistic set logout=? where id = '%s'", sessionEvent.getSession().getId()));
+            Statement s = conn.prepareStatement (String.format ("update statistic set logout=now() where id = '%s'", sessionEvent.getSession().getId()));
 
-            ((PreparedStatement) s).setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
             ((PreparedStatement) s).execute ();
 
 
