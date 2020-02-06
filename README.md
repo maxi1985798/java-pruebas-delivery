@@ -1,4 +1,4 @@
-# educacionit-delivery
+# delivery
 Java Web Project: JSP, Servlet, Postgresql.
 
 # Commands
